@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    faucet_pipeline_rails (0.2.0)
+    faucet_pipeline_rails (0.1.0)
       rails (>= 4.2.10)
 
 GEM
