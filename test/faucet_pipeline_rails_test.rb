@@ -1,9 +1,9 @@
 require "test_helper"
 require "fileutils"
 
-class RailsExternalAssetPipeline::Test < ActionDispatch::IntegrationTest
+class FaucetPipelineRails::Test < ActionDispatch::IntegrationTest
   def setup
-    Dummy::Application.config.x.rails_external_asset_pipeline.manifests_path = nil
+    Dummy::Application.config.x.faucet_pipeline.manifests_path = nil
   end
 
   def test_that_the_source_of_an_image_is_set_correctly
@@ -80,6 +80,6 @@ class RailsExternalAssetPipeline::Test < ActionDispatch::IntegrationTest
   end
 
   def use_manifest_path(path)
-    Dummy::Application.config.x.rails_external_asset_pipeline.manifests_path = path
+    Dummy::Application.config.x.faucet_pipeline.manifests_path = path
   end
 end

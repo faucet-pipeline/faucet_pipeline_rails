@@ -13,7 +13,7 @@ require "action_view/railtie"
 require "rails/test_unit/railtie"
 
 Bundler.require(*Rails.groups)
-require "rails_external_asset_pipeline"
+require "faucet_pipeline_rails"
 
 module Dummy
   class Application < Rails::Application

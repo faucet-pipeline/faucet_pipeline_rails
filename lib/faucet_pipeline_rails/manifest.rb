@@ -1,4 +1,4 @@
-module RailsExternalAssetPipeline
+module FaucetPipelineRails
   class Manifest
     def initialize(manifests_path, type)
       @manifests_path = manifests_path

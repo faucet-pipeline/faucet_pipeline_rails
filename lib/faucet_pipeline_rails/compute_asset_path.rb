@@ -1,6 +1,6 @@
-require "rails_external_asset_pipeline/manifest"
+require "faucet_pipeline_rails/manifest"
 
-module RailsExternalAssetPipeline
+module FaucetPipelineRails
   module ComputeAssetPath
     TYPES_WITH_MANIFEST = %i(stylesheet image javascript)
 
@@ -14,7 +14,7 @@ module RailsExternalAssetPipeline
     end
 
     def manifests_path
-      Rails.configuration.x.rails_external_asset_pipeline.manifests_path ||
+      Rails.configuration.x.faucet_pipeline.manifests_path ||
         File.join("public", "assets", "manifests")
     end
   end
