@@ -36,7 +36,7 @@ class FaucetPipelineRails::Test < ActionDispatch::IntegrationTest
       get "/broken/index"
     end
 
-    assert_equal err.message, "The asset 'missing.gif' of type 'image' was not in the manifest", "Check for descriptive error message"
+    assert_equal err.message, "The asset 'missing.gif' was not in the manifest", "Check for descriptive error message"
   end
 
   def test_raises_an_error_when_manifest_is_missing
@@ -46,7 +46,7 @@ class FaucetPipelineRails::Test < ActionDispatch::IntegrationTest
       get "/fancy/index"
     end
 
-    assert_equal err.message, "The manifest file 'public/assets/manifests/image.json' is missing", "Check for descriptive error message"
+    assert_equal err.message, "The manifest file 'public/assets/manifests/static.json' is missing", "Check for descriptive error message"
   end
 
   def test_raises_an_error_when_manifest_is_invalid_json
@@ -56,7 +56,7 @@ class FaucetPipelineRails::Test < ActionDispatch::IntegrationTest
       get "/fancy/index"
     end
 
-    assert_equal err.message, "The manifest file 'public/assets/manifests/image.json' is invalid JSON", "Check for descriptive error message"
+    assert_equal err.message, "The manifest file 'public/assets/manifests/static.json' is invalid JSON", "Check for descriptive error message"
   end
 
   def test_configure_different_manifest_path

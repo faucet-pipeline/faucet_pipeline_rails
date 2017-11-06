@@ -8,7 +8,7 @@ module FaucetPipelineRails
     def fetch(asset_name)
       parsed_manifest.fetch(asset_name)
     rescue KeyError
-      raise "The asset '#{asset_name}' of type '#{@type}' was not in the manifest"
+      raise "The asset '#{asset_name}' was not in the manifest"
     end
 
     private
