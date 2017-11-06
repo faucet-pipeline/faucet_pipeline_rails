@@ -4,6 +4,9 @@ Instead of using the built-in asset pipeline of Rails, use
 [`faucet-pipeline`](https://github.com/faucet-pipeline/faucet-pipeline). This
 gem enables the required integration with Rails.
 
+[You can find an example app
+here](https://github.com/faucet-pipeline/faucet_pipeline_rails_example).
+
 Why is an integration like that required? `faucet-pipeline` modifies the names
 of the generated files depending on their content (by adding a hash of the file
 to the name), Rails will not be able to find the files on its own. You still
@@ -15,11 +18,12 @@ So let's say you have a JavaScript file called `application.js` (for example in
 `app/assets/javascripts`) and `faucet-pipeline` generates a file called
 `application-03118e77692b637cfc0f55bb27fef087.js` (for example in
 `public/assets/javascripts`) from that file. When you use `stylesheet_link_tag
-'application'`, you expect that the resulting HTML points to the file
-containing the hash in its filename. To do that, `faucet-pipeline` generates a
-manifest files for each type of asset. In this case, it needs to generate a
-file called `javascript.json` in `public/assets/manifests` (to change this, see
-the Configuration section). The file should look like this:
+'public/assets/javascripts/application.js'`, you expect that the resulting HTML
+points to the file containing the hash in its filename. To do that,
+`faucet-pipeline` generates a manifest files for each type of asset. In this
+case, it needs to generate a file called `javascript.json` in
+`public/assets/manifests` (to change this, see the Configuration section). The
+file should look like this:
 
 ```json
 {
@@ -113,6 +117,13 @@ module.exports = {
   static: staticConfig,
   watchDirs: ["app/assets"]
 };
+```
+
+In this case, your `application.html.erb` would contain lines like these:
+
+```erb
+<%= stylesheet_link_tag 'public/assets/stylesheets/application.css', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'public/assets/javascripts/application.js', 'data-turbolinks-track': 'reload' %>
 ```
 
 You can change the path to the manifest fiels that with the following
