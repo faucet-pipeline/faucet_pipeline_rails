@@ -65,6 +65,25 @@ Or install it yourself as:
 $ gem install faucet_pipeline_rails
 ```
 
+After this, you can ditch sprockets (aka the classic Rails asset pipeline) for good.
+Change the top of your `config/application.rb` from `require 'rails/all'` to:
+
+```ruby
+# Pick the frameworks you want:
+require "active_model/railtie"
+require "active_job/railtie"
+require "active_record/railtie"
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "action_view/railtie"
+require "action_cable/engine"
+# require "sprockets/railtie" # Disable sprockets
+require "rails/test_unit/railtie"
+```
+
+Make sure you customize this to your actual needs. The main takeaway here is
+to not require `"sprockets/railtie"` anymore.
+
 ## Configuration
 
 By default this gem assumes that your manifest files can be found in
