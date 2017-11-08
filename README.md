@@ -65,8 +65,9 @@ Or install it yourself as:
 $ gem install faucet_pipeline_rails
 ```
 
-After this, you can ditch sprockets (aka the classic Rails asset pipeline) for good.
-Change the top of your `config/application.rb` from `require 'rails/all'` to:
+After this, you can ditch sprockets (aka the classic Rails asset pipeline)
+for good. If you're on an existing Rails app, change the top of your 
+`config/application.rb` from `require 'rails/all'` to:
 
 ```ruby
 # Pick the frameworks you want:
@@ -83,6 +84,10 @@ require "rails/test_unit/railtie"
 
 Make sure you customize this to your actual needs. The main takeaway here is
 to not require `"sprockets/railtie"` anymore.
+
+For fresh apps, you can just skip sprockets with:
+
+    rails new --skip-sprockets
 
 ## Configuration
 
