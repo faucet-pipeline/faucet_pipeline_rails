@@ -3,7 +3,7 @@ require "fileutils"
 
 class FaucetPipelineRails::Test < ActionDispatch::IntegrationTest
   def setup
-    Dummy::Application.config.x.faucet_pipeline.manifests_path = nil
+    Dummy::Application.config.x.faucet_pipeline.manifest_path = nil
   end
 
   def test_that_the_source_of_an_image_is_set_correctly
@@ -46,7 +46,7 @@ class FaucetPipelineRails::Test < ActionDispatch::IntegrationTest
       get "/fancy/index"
     end
 
-    assert_equal err.message, "The manifest file 'public/assets/manifests/static.json' is missing", "Check for descriptive error message"
+    assert_equal err.message, "The manifest file 'public/assets/manifest.json' is missing", "Check for descriptive error message"
   end
 
   def test_raises_an_error_when_manifest_is_invalid_json
@@ -56,12 +56,12 @@ class FaucetPipelineRails::Test < ActionDispatch::IntegrationTest
       get "/fancy/index"
     end
 
-    assert_equal err.message, "The manifest file 'public/assets/manifests/static.json' is invalid JSON", "Check for descriptive error message"
+    assert_equal err.message, "The manifest file 'public/assets/manifest.json' is invalid JSON", "Check for descriptive error message"
   end
 
   def test_configure_different_manifest_path
     use_assets_fixtures "good_assets", asset_path: "test/dummy/public/myassets"
-    use_manifest_path File.join("public", "myassets", "manifests")
+    use_manifest_path File.join("public", "myassets", "manifest.json")
 
     assert_nothing_raised do
       get "/fancy/index"
@@ -80,6 +80,6 @@ class FaucetPipelineRails::Test < ActionDispatch::IntegrationTest
   end
 
   def use_manifest_path(path)
-    Dummy::Application.config.x.faucet_pipeline.manifests_path = path
+    Dummy::Application.config.x.faucet_pipeline.manifest_path = path
   end
 end

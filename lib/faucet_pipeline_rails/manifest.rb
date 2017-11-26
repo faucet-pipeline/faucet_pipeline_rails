@@ -1,8 +1,7 @@
 module FaucetPipelineRails
   class Manifest
-    def initialize(manifests_path, type)
-      @manifests_path = manifests_path
-      @type = type
+    def initialize(manifest_path)
+      @manifest_path = manifest_path
     end
 
     def fetch(asset_name)
@@ -12,6 +11,8 @@ module FaucetPipelineRails
     end
 
     private
+
+    attr_reader :manifest_path
 
     def parsed_manifest
       JSON.parse(unparsed_manifest)
@@ -27,10 +28,6 @@ module FaucetPipelineRails
 
     def full_manifest_path
       File.join(Rails.root, manifest_path)
-    end
-
-    def manifest_path
-      File.join(@manifests_path, "#{@type}.json")
     end
   end
 end

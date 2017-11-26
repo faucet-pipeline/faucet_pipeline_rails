@@ -20,18 +20,12 @@ So let's say you have a JavaScript file called `application.js` (for example in
 `public/assets/javascripts`) from that file. When you use `stylesheet_link_tag
 'public/assets/javascripts/application.js'`, you expect that the resulting HTML
 points to the file containing the hash in its filename. To do that,
-`faucet-pipeline` generates a manifest files for each type of asset. In this
-case, it needs to generate a file called `javascript.json` in
-`public/assets/manifests` (to change this, see the Configuration section). The
-file should look like this:
+`faucet-pipeline` generates a manifest file. In the case of using it with this
+Gem, it needs to save it as `public/assets/manifest.json` (to change this, see
+the Configuration section)
 
-```json
-{
-  "application.js": "/assets/javascripts/application-03118e77692b637cfc0f55bb27fef087.js"
-}
-```
-
-And that's it. This gem will take care of the rest. The resulting HTML will look like this:
+And that's it. This gem will take care of the rest. The resulting HTML will
+look like this:
 
 ```html
 <!-- ... -->
@@ -92,72 +86,51 @@ For fresh apps, you can just skip sprockets with:
 ## Configuration
 
 By default this gem assumes that your manifest files can be found in
-`public/assets/manifests`. This is a nice starting point for a `faucet.config.js`:
+`public/assets/manifest.json`. This is a nice starting point for a
+`faucet.config.js`:
 
 ```js
-let jsConfig = {
-  manifest: {
-    file: "public/assets/manifests/javascript.json",
-    baseURI: (bundlePath, baseName) => `/assets/javascripts/${baseName}`
-  },
-  bundles: [{
-    entryPoint: "./app/assets/javascripts/application.js",
-    target: "public/assets/javascripts/application.js",
-    externals: {}
-  }]
-};
+let jsConfig = [{
+  entryPoint: "./app/assets/javascripts/application.js",
+  target: "./public/assets/javascripts/application.js"
+}];
 
-let sassConfig = {
-  manifest: {
-    file: "public/assets/manifests/stylesheet.json",
-    baseURI: (bundlePath, baseName) => `/assets/stylesheets/${baseName}`
-  },
-  assets: [
-    "public/assets/manifests/static.json"
-  ],
-  prefixes: {
-    browsers: [ "last 2 versions" ]
-  },
-  bundles: [{
-    entryPoint: "app/assets/stylesheets/application.scss",
-    target: "public/assets/stylesheets/application.css"
-  }]
-};
+let sassConfig = [{
+  entryPoint: "./app/assets/stylesheets/application.scss",
+  target: "./public/assets/stylesheets/application.css"
+}];
 
-let staticConfig = {
-  manifest: {
-    file: "public/assets/manifests/static.json",
-    baseURI: (bundlePath, baseName) => `/assets/static/${baseName}`
-  },
-  bundles: [{
-    source: "app/assets/images",
-    target: "public/assets/static"
-  }]
-}
+let staticConfig = [{
+  source: "./app/assets/images",
+  target: "./public/assets/images"
+}];
 
 module.exports = {
   js: jsConfig,
   sass: sassConfig,
   static: staticConfig,
-  watchDirs: ["app/assets"]
+  watchDirs: ["app/assets"],
+  manifest: {
+    file: "./public/assets/manifest.json",
+    webRoot: "./public"
+  }
 };
 ```
 
 In this case, your `application.html.erb` would contain lines like these:
 
 ```erb
-<%= stylesheet_link_tag 'public/assets/stylesheets/application.css', media: 'all', 'data-turbolinks-track': 'reload' %>
-<%= javascript_include_tag 'public/assets/javascripts/application.js', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag 'public/assets/application.css', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'public/assets/application.js', 'data-turbolinks-track': 'reload' %>
 ```
 
-You can change the path to the manifest fiels that with the following
-configuration:
+You can change the path to the manifest file with the following configuration:
 
 ```ruby
-config.x.faucet_pipeline.manifests_path = File.join("my", "own", "manifests", "path")
+config.x.faucet_pipeline.manifest_path = File.join("my", "own", "manifests", "path.json")
 ```
 
-The `manifests_path` is relative to your Rails Root.
+The `manifest_path` is relative to your Rails Root.
 
 ## Development
 
