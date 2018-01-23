@@ -1,3 +1,3 @@
 module FaucetPipelineRails
-  VERSION = "0.3.0"
+  VERSION = "1.0.0.rc0"
 end
