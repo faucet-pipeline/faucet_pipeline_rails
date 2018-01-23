@@ -18,11 +18,10 @@ So let's say you have a JavaScript file called `application.js` (for example in
 `app/assets/javascripts`) and `faucet-pipeline` generates a file called
 `application-03118e77692b637cfc0f55bb27fef087.js` (for example in
 `public/assets/javascripts`) from that file. When you use `stylesheet_link_tag
-'public/assets/javascripts/application.js'`, you expect that the resulting HTML
-points to the file containing the hash in its filename. To do that,
-`faucet-pipeline` generates a manifest file. In the case of using it with this
-Gem, it needs to save it as `public/assets/manifest.json` (to change this, see
-the Configuration section)
+'application.css'`, you expect that the resulting HTML points to the file
+containing the hash in its filename. To do that, `faucet-pipeline` generates a
+manifest file. In the case of using it with this Gem, it needs to save it as
+`public/assets/manifest.json` (to change this, see the Configuration section)
 
 And that's it. This gem will take care of the rest. The resulting HTML will
 look like this:
@@ -60,7 +59,7 @@ $ gem install faucet_pipeline_rails
 ```
 
 After this, you can ditch sprockets (aka the classic Rails asset pipeline)
-for good. If you're on an existing Rails app, change the top of your 
+for good. If you're on an existing Rails app, change the top of your
 `config/application.rb` from `require 'rails/all'` to:
 
 ```ruby
@@ -90,13 +89,15 @@ By default this gem assumes that your manifest files can be found in
 `faucet.config.js`:
 
 ```js
+let path = require("path");
+
 let jsConfig = [{
-  entryPoint: "./app/assets/javascripts/application.js",
+  source: "./app/assets/javascripts/application.js",
   target: "./public/assets/javascripts/application.js"
 }];
 
 let sassConfig = [{
-  entryPoint: "./app/assets/stylesheets/application.scss",
+  source: "./app/assets/stylesheets/application.scss",
   target: "./public/assets/stylesheets/application.css"
 }];
 
@@ -112,7 +113,8 @@ module.exports = {
   watchDirs: ["app/assets"],
   manifest: {
     file: "./public/assets/manifest.json",
-    webRoot: "./public"
+    key: (f, targetDir) => path.relative(targetDir, f),
+    value: f => `/${path.relative("public", f)}`
   }
 };
 ```
@@ -120,8 +122,8 @@ module.exports = {
 In this case, your `application.html.erb` would contain lines like these:
 
 ```erb
-<%= stylesheet_link_tag 'public/assets/application.css', media: 'all', 'data-turbolinks-track': 'reload' %>
-<%= javascript_include_tag 'public/assets/application.js', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag 'application.css', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'application.js', 'data-turbolinks-track': 'reload' %>
 ```
 
 You can change the path to the manifest file with the following configuration:
