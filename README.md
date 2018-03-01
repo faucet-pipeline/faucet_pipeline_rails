@@ -134,6 +134,11 @@ config.x.faucet_pipeline.manifest_path = Rails.root.join("my", "own", "manifests
 
 The `manifest_path` is an absolute path.
 
+This gem also provides a Rake task `assets:precompile` that runs faucet with the
+`--compact --fingerprint` options. It can therefore be used as a drop-in replacement
+for the task provided by the Rails asset pipeline. It only works if you install
+your NPM dependencies to the default location (your app's `node_modules` folder).
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. You can

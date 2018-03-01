@@ -8,5 +8,14 @@ module FaucetPipelineRails
         Manifest.instance.fetch(source)
       end
     end
+
+    rake_tasks do
+      namespace :assets do
+        desc "Compile assets via faucet-pipeline"
+        task :precompile do
+          sh "./node_modules/.bin/faucet --compact --fingerprint"
+        end
+      end
+    end
   end
 end
