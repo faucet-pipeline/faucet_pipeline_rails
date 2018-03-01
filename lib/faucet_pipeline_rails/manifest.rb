@@ -5,12 +5,17 @@ module FaucetPipelineRails
     include Singleton
 
     def fetch(asset_name)
-      parsed_manifest.fetch(asset_name)
+      manifest.fetch(asset_name)
     rescue KeyError
       raise "The asset '#{asset_name}' was not in the manifest"
     end
 
     private
+
+    def manifest
+      return parsed_manifest unless Rails.env.production?
+      @manifest ||= parsed_manifest
+    end
 
     def parsed_manifest
       JSON.parse(unparsed_manifest)
