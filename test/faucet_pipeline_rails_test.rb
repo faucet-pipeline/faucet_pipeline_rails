@@ -46,7 +46,7 @@ class FaucetPipelineRails::Test < ActionDispatch::IntegrationTest
       get "/fancy/index"
     end
 
-    assert_equal err.message, "The manifest file 'public/assets/manifest.json' is missing", "Check for descriptive error message"
+    assert_match %r{The manifest file '.+/public/assets/manifest.json' is missing}, err.message, "Check for descriptive error message"
   end
 
   def test_raises_an_error_when_manifest_is_invalid_json
@@ -56,12 +56,12 @@ class FaucetPipelineRails::Test < ActionDispatch::IntegrationTest
       get "/fancy/index"
     end
 
-    assert_equal err.message, "The manifest file 'public/assets/manifest.json' is invalid JSON", "Check for descriptive error message"
+    assert_match %r{The manifest file '.+/public/assets/manifest.json' is invalid JSON}, err.message, "Check for descriptive error message"
   end
 
   def test_configure_different_manifest_path
     use_assets_fixtures "good_assets", asset_path: "test/dummy/public/myassets"
-    use_manifest_path File.join("public", "myassets", "manifest.json")
+    use_manifest_path File.join(Rails.root, "public", "myassets", "manifest.json")
 
     assert_nothing_raised do
       get "/fancy/index"
