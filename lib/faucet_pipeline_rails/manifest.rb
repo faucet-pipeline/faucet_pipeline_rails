@@ -30,8 +30,7 @@ module FaucetPipelineRails
     end
 
     def manifest_path
-      Rails.configuration.x.faucet_pipeline.manifest_path ||
-        Rails.root.join("public", "assets", "manifest.json")
+      Rails.configuration.faucet_pipeline.manifest_path
     end
   end
 end

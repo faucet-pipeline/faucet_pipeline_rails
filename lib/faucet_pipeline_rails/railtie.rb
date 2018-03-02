@@ -9,6 +9,11 @@ module FaucetPipelineRails
       end
     end
 
+    initializer "faucet_pipeline.configure_manifest_path" do |app|
+      config.faucet_pipeline = ActiveSupport::OrderedOptions.new
+      config.faucet_pipeline.manifest_path = app.root.join("public", "assets", "manifest.json")
+    end
+
     rake_tasks do
       namespace :assets do
         desc "Compile assets via faucet-pipeline"
