@@ -2,10 +2,6 @@ require "test_helper"
 require "fileutils"
 
 class FaucetPipelineRails::Test < ActionDispatch::IntegrationTest
-  def setup
-    Dummy::Application.config.x.faucet_pipeline.manifest_path = nil
-  end
-
   def test_that_the_source_of_an_image_is_set_correctly
     use_assets_fixtures "good_assets"
     get "/fancy/index"
@@ -61,10 +57,10 @@ class FaucetPipelineRails::Test < ActionDispatch::IntegrationTest
 
   def test_configure_different_manifest_path
     use_assets_fixtures "good_assets", asset_path: "test/dummy/public/myassets"
-    use_manifest_path File.join(Rails.root, "public", "myassets", "manifest.json")
-
-    assert_nothing_raised do
-      get "/fancy/index"
+    use_manifest_path(Rails.root.join("public", "myassets", "manifest.json")) do
+      assert_nothing_raised do
+        get "/fancy/index"
+      end
     end
   end
 
@@ -80,6 +76,9 @@ class FaucetPipelineRails::Test < ActionDispatch::IntegrationTest
   end
 
   def use_manifest_path(path)
-    Dummy::Application.config.x.faucet_pipeline.manifest_path = path
+    original_path = Dummy::Application.config.faucet_pipeline.manifest_path
+    Dummy::Application.config.faucet_pipeline.manifest_path = path
+    yield
+    Dummy::Application.config.faucet_pipeline.manifest_path = original_path
   end
 end

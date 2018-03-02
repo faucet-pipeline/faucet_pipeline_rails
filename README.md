@@ -129,10 +129,10 @@ In this case, your `application.html.erb` would contain lines like these:
 You can change the path to the manifest file with the following configuration:
 
 ```ruby
-config.x.faucet_pipeline.manifest_path = Rails.root.join("my", "own", "manifests", "path.json")
+config.faucet_pipeline.manifest_path = Rails.root.join("my", "own", "manifests", "path.json")
 ```
 
-The `manifest_path` is an absolute path.
+Note that `manifest_path` is an absolute path.
 
 This gem also provides a Rake task `assets:precompile` that runs faucet with the
 `--compact --fingerprint` options. It can therefore be used as a drop-in replacement
