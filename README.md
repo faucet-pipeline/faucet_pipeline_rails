@@ -52,12 +52,6 @@ And then execute:
 $ bundle
 ```
 
-Or install it yourself as:
-
-```
-$ gem install faucet_pipeline_rails
-```
-
 After this, you can ditch sprockets (aka the classic Rails asset pipeline)
 for good. If you're on an existing Rails app, change the top of your
 `config/application.rb` from `require 'rails/all'` to:
@@ -82,40 +76,33 @@ For fresh apps, you can just skip sprockets with:
 
     rails new --skip-sprockets
 
+You also need to install `faucet-pipeline`.
+[Here are the instructions](http://www.faucet-pipeline.org)
+
 ## Configuration
 
-By default this gem assumes that your manifest files can be found in
-`public/assets/manifest.json`. This is a nice starting point for a
-`faucet.config.js`:
+This is a nice starting point for a `faucet.config.js`:
 
 ```js
-let path = require("path");
-
-let jsConfig = [{
-  source: "./app/assets/javascripts/application.js",
-  target: "./public/assets/javascripts/application.js"
-}];
-
-let sassConfig = [{
-  source: "./app/assets/stylesheets/application.scss",
-  target: "./public/assets/stylesheets/application.css"
-}];
-
-let staticConfig = [{
-  source: "./app/assets/images",
-  target: "./public/assets/images"
-}];
-
 module.exports = {
-  js: jsConfig,
-  sass: sassConfig,
-  static: staticConfig,
-  watchDirs: ["app/assets"],
+  js: [{
+    source: "./app/assets/javascripts/application.js",
+    target: "./public/assets/javascripts/application.js"
+  }],
+  sass: [{
+    source: "./app/assets/stylesheets/application.scss",
+    target: "./public/assets/stylesheets/application.css"
+  }],
+  static: [{
+    source: "./app/assets/images",
+    target: "./public/assets/images"
+  }],
   manifest: {
     file: "./public/assets/manifest.json",
-    key: (f, targetDir) => path.relative(targetDir, f),
-    value: f => `/${path.relative("public", f)}`
-  }
+    key: "short",
+    webRoot: "./public"
+  },
+  watchDirs: ["./app/assets"]
 };
 ```
 
@@ -126,10 +113,12 @@ In this case, your `application.html.erb` would contain lines like these:
 <%= javascript_include_tag 'application.js', 'data-turbolinks-track': 'reload' %>
 ```
 
-You can change the path to the manifest file with the following configuration:
+By default this gem assumes that your manifest files can be found in
+`public/assets/manifest.json`. You can change the path to the manifest
+file with the following configuration:
 
 ```ruby
-config.faucet_pipeline.manifest_path = Rails.root.join("my", "own", "manifests", "path.json")
+config.faucet_pipeline.manifest_path = Rails.root.join("manifest.json")
 ```
 
 Note that `manifest_path` is an absolute path.
