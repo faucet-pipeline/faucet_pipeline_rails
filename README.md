@@ -98,7 +98,7 @@ module.exports = {
     target: "./public/assets/images"
   }],
   manifest: {
-    file: "./public/assets/manifest.json",
+    target: "./public/assets/manifest.json",
     key: "short",
     webRoot: "./public"
   },
