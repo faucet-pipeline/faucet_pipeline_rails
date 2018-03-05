@@ -18,7 +18,7 @@ module FaucetPipelineRails
       namespace :assets do
         desc "Compile assets via faucet-pipeline"
         task :precompile do
-          sh "./node_modules/.bin/faucet --compact --fingerprint"
+          sh "npm install && ./node_modules/.bin/faucet --compact --fingerprint"
         end
       end
     end
