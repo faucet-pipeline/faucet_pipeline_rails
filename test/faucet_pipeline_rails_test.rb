@@ -55,15 +55,6 @@ class FaucetPipelineRails::Test < ActionDispatch::IntegrationTest
     assert_match %r{The manifest file '.+/public/assets/manifest.json' is invalid JSON}, err.message, "Check for descriptive error message"
   end
 
-  def test_configure_different_manifest_path
-    use_assets_fixtures "good_assets", asset_path: "test/dummy/public/myassets"
-    use_manifest_path(Rails.root.join("public", "myassets", "manifest.json")) do
-      assert_nothing_raised do
-        get "/fancy/index"
-      end
-    end
-  end
-
   def teardown
     FileUtils.remove_dir "test/dummy/public/assets", true
     FileUtils.remove_dir "test/dummy/public/myassets", true
@@ -73,12 +64,5 @@ class FaucetPipelineRails::Test < ActionDispatch::IntegrationTest
 
   def use_assets_fixtures(name, asset_path: "test/dummy/public/assets")
     FileUtils.cp_r "test/fixtures/#{name}", asset_path
-  end
-
-  def use_manifest_path(path)
-    original_path = Dummy::Application.config.faucet_pipeline.manifest_path
-    Dummy::Application.config.faucet_pipeline.manifest_path = path
-    yield
-    Dummy::Application.config.faucet_pipeline.manifest_path = original_path
   end
 end
