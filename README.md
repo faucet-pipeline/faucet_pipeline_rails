@@ -58,15 +58,16 @@ for good. If you're on an existing Rails app, change the top of your
 
 ```ruby
 # Pick the frameworks you want:
-require "active_model/railtie"
-require "active_job/railtie"
 require "active_record/railtie"
+require "active_storage/engine"
 require "action_controller/railtie"
-require "action_mailer/railtie"
 require "action_view/railtie"
+require "action_mailer/railtie"
+require "active_job/railtie"
 require "action_cable/engine"
-# require "sprockets/railtie" # Disable sprockets
 require "rails/test_unit/railtie"
+# require "sprockets/railtie" # Disable sprockets in favor of faucet
+require "active_model/railtie"
 ```
 
 Make sure you customize this to your actual needs. The main takeaway here is
