@@ -1,4 +1,7 @@
-# Use Rails with faucet-pipeline [![Build Status](https://travis-ci.org/faucet-pipeline/faucet_pipeline_rails.svg)](https://travis-ci.org/faucet-pipeline/faucet_pipeline_rails)
+# Use Rails with faucet-pipelin
+
+[![Build Status](https://travis-ci.org/faucet-pipeline/faucet_pipeline_rails.svg)](https://travis-ci.org/faucet-pipeline/faucet_pipeline_rails)
+[![Depfu](https://badges.depfu.com/badges/b4c249c5f46c9aacee1d821248319101/overview.svg)](https://depfu.com/github/faucet-pipeline/faucet_pipeline_rails?project_id=5904)
 
 Instead of using the built-in asset pipeline of Rails, use
 [`faucet-pipeline`](https://github.com/faucet-pipeline/faucet-pipeline). This
