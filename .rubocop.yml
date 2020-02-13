@@ -1,13 +1,13 @@
 AllCops:
   DisabledByDefault: true
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.7
   DisplayCopNames: true
   Exclude:
     - "test/dummy/**/*"
 
 ### Style ###
 
-Style/AccessModifierIndentation:
+Layout/AccessModifierIndentation:
   Enabled: true
 
 Style/Alias:
@@ -20,7 +20,7 @@ Style/AndOr:
 Style/BlockDelimiters:
   Enabled: true
 
-Style/CaseIndentation:
+Layout/CaseIndentation:
   Enabled: true
 
 Style/CollectionMethods:
@@ -29,7 +29,7 @@ Style/CollectionMethods:
 Style/ConditionalAssignment:
   Enabled: true
 
-Style/DotPosition:
+Layout/DotPosition:
   Enabled: true
 
 Style/EachWithObject:
@@ -44,10 +44,7 @@ Style/GlobalVars:
 Style/HashSyntax:
   Enabled: true
 
-Style/IndentAssignment:
-  Enabled: true
-
-Style/IndentationConsistency:
+Layout/IndentationConsistency:
   # The difference between `rails` and `normal` is that the `rails` style
   # prescribes that in classes and modules the `protected` and `private`
   # modifier keywords shall be indented the same as public methods and that
@@ -57,16 +54,16 @@ Style/IndentationConsistency:
   Enabled: true
   EnforcedStyle: normal
 
-Style/IndentationWidth:
+Layout/IndentationWidth:
   Enabled: true
 
 Style/MethodDefParentheses:
   Enabled: true
 
-Style/MethodName:
+Naming/MethodName:
   Enabled: true
 
-Style/MultilineAssignmentLayout:
+Layout/MultilineAssignmentLayout:
   Enabled: true
   EnforcedStyle: same_line
 
@@ -89,16 +86,16 @@ Style/RegexpLiteral:
   Enabled: true
   EnforcedStyle: mixed
 
-Style/SpaceAroundOperators:
+Layout/SpaceAroundOperators:
   Enabled: true
 
-Style/SpaceBeforeBlockBraces:
+Layout/SpaceBeforeBlockBraces:
   Enabled: true
 
-Style/SpaceInsideBlockBraces:
+Layout/SpaceInsideBlockBraces:
   Enabled: true
 
-Style/SpaceInsideHashLiteralBraces:
+Layout/SpaceInsideHashLiteralBraces:
   Enabled: true
 
 Style/StabbyLambdaParentheses:
@@ -114,16 +111,16 @@ Style/StringLiterals:
 Style/SymbolProc:
   Enabled: true
 
-Style/Tab:
+Layout/Tab:
   Enabled: true
 
-Style/TrailingWhitespace:
+Layout/TrailingWhitespace:
   Enabled: true
 
 Style/TrivialAccessors:
   Enabled: true
 
-Style/VariableName:
+Naming/VariableName:
   Enabled: true
 
 Style/WordArray:
@@ -137,7 +134,7 @@ Lint/DeprecatedClassMethods:
 Lint/DuplicateMethods:
   Enabled: true
 
-Lint/EndAlignment:
+Layout/EndAlignment:
   Enabled: true
 
 Lint/UnusedBlockArgument:
