@@ -55,6 +55,16 @@ class FaucetPipelineRails::Test < ActionDispatch::IntegrationTest
     assert_match %r{The manifest file '.+/public/assets/manifest.json' is invalid JSON}, err.message, "Check for descriptive error message"
   end
 
+  def test_use_faucet_manifest_when_using_helper_directly
+    use_assets_fixtures "good_assets"
+
+    helpers = Class.new do
+      include ActionView::Helpers::AssetUrlHelper
+    end.new
+
+    assert_equal "/assets/images/magic-f67894a08006a2af9f5076180676323c.gif", helpers.asset_path("magic.gif")
+  end
+
   def teardown
     FileUtils.remove_dir "test/dummy/public/assets", true
     FileUtils.remove_dir "test/dummy/public/myassets", true
