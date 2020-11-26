@@ -19,6 +19,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails", ">= 4.2.10"
 
-  spec.add_development_dependency "rubocop", "~> 1.3.1"
+  spec.add_development_dependency "rubocop", "~> 1.4.2"
   spec.add_development_dependency "rake", "~> 13.0.0"
 end
