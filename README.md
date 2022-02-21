@@ -1,7 +1,6 @@
 # Use Rails with faucet-pipeline
 
-[![Gem Version](https://badge.fury.io/rb/faucet_pipeline_rails.svg)](https://badge.fury.io/rb/faucet_pipeline_rails)
-[![Depfu](https://badges.depfu.com/badges/b4c249c5f46c9aacee1d821248319101/overview.svg)](https://depfu.com/github/faucet-pipeline/faucet_pipeline_rails?project_id=5904)
+[![Gem](https://img.shields.io/gem/v/faucet_pipeline_rails)](https://rubygems.org/gems/faucet_pipeline_rails)
 
 Instead of using the built-in asset pipeline of Rails, use
 [`faucet-pipeline`](https://github.com/faucet-pipeline/faucet-pipeline). This
@@ -46,7 +45,7 @@ The types supported by this gem are:
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'faucet_pipeline_rails'
+gem "faucet_pipeline_rails"
 ```
 
 And then execute:
@@ -91,21 +90,26 @@ This is a nice starting point for a `faucet.config.js`:
 module.exports = {
   js: [{
     source: "./app/assets/javascripts/application.js",
-    target: "./public/assets/javascripts/application.js"
+    target: "./public/assets/javascripts/application.js",
+    format: "esm"
   }],
+
   sass: [{
     source: "./app/assets/stylesheets/application.scss",
     target: "./public/assets/stylesheets/application.css"
   }],
+
   static: [{
     source: "./app/assets/images",
     target: "./public/assets/images"
   }],
+
   manifest: {
     target: "./public/assets/manifest.json",
     key: "short",
     webRoot: "./public"
   },
+
   watchDirs: ["./app/assets"]
 };
 ```
@@ -113,8 +117,8 @@ module.exports = {
 In this case, your `application.html.erb` would contain lines like these:
 
 ```erb
-<%= stylesheet_link_tag 'application.css', media: 'all', 'data-turbolinks-track': 'reload' %>
-<%= javascript_include_tag 'application.js', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag "application.css", media: "all" %>
+<%= javascript_include_tag "application.js", type: "module" %>
 ```
 
 By default this gem assumes that your manifest files can be found in
